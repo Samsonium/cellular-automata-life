@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import Life from "./utils/life";
+  import Life from "./classes/life";
 
   let simActive = false;
 
