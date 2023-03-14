@@ -10,7 +10,7 @@
       document.querySelector<HTMLCanvasElement>("#game-canvas")
     );
     
-    game.createMap(16, 16, 16);
+    game.createMap(32, 32, 16);
     game.setupEvents();
   });
 
