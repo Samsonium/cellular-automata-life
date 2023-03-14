@@ -6,8 +6,15 @@ class Cell {
     /** Cell state */
     private currentState: CellState;
 
-    public constructor() {
-        this.currentState = CellState.dead;
+    public constructor(currentState?: CellState) {
+        this.currentState = currentState ?? CellState.dead;
+    }
+
+    /**
+     * Copy current instance of cell
+     */
+    public copy(): Cell {
+        return new Cell(this.currentState);
     }
 
     /** 

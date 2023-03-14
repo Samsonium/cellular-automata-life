@@ -78,7 +78,7 @@ class Life {
             let result = '';
             for (let x = 0; x < this.mapWidth; x++) {
                 for (let y = 0; y < this.mapHeight; y++) {
-                    result += this.map[x][y].state == CellState.alive ? '. ' : '. ';
+                    result += this.map[x][y].state == CellState.alive ? 'A ' : '. ';
                 }
 
                 result += '\n'
@@ -192,8 +192,10 @@ class Life {
 
         for (let x = 0; x < this.mapWidth; x++) {
             for (let y = 0; y < this.mapHeight; y++) {
-                const cell = snapshop[x][y];
+                const cell = snapshop[x][y].copy();
                 const near = this.getAliveNeighborhoodsCount(x, y);
+
+                // if (!near && cell.state == CellState.dead) break;
 
                 // Calculate results
                 const born = cell.shouldBorn(near);
@@ -201,8 +203,8 @@ class Life {
 
                 // Change cell state
                 if (cell.state == CellState.dead  && born || cell.state == CellState.alive && live) 
-                    cell.state = CellState.alive;
-                else cell.state = CellState.dead;
+                    snapshop[x][y] = new Cell(CellState.alive);
+                else snapshop[x][y] = new Cell(CellState.dead);
 
                 // Possibly increment alive counter
                 if (cell.state == CellState.alive)
@@ -210,7 +212,7 @@ class Life {
             }
         }
 
-        // this.map = snapshop;
+        this.map = snapshop;
         this.draw();
 
         if (aliveCount == 0) this.stopSimulation();
